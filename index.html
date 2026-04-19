@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EDTECH Repair Services | John Edmar B. Abaño</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Nunito:wght@400;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0a1a;
+    --bg2: #0f0f2a;
+    --bg3: #13132e;
+    --cyan: #00f5ff;
+    --purple: #b44fff;
+    --yellow: #ffe94a;
+    --pink: #ff4fa3;
+    --green: #39ff88;
+    --card: #12122a;
+    --border: #2a2a55;
+    --text: #e0e0ff;
+    --muted: #7070aa;
+    --white: #ffffff;
+    --shadow-cyan: 0 0 20px rgba(0,245,255,0.4);
+    --shadow-purple: 0 0 20px rgba(180,79,255,0.4);
+    --shadow-yellow: 0 0 20px rgba(255,233,74,0.4);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Nunito',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+    cursor:none;
+  }
+
+  /* CUSTOM CURSOR */
+  #cursor{
+    width:14px;height:14px;
+    border-radius:50%;
+    background:var(--cyan);
+    position:fixed;
+    top:0;left:0;
+    pointer-events:none;
+    z-index:9999;
+    transition:transform 0.1s ease;
+    box-shadow:0 0 10px var(--cyan),0 0 20px var(--cyan);
+  }
+  #cursor-ring{
+    width:36px;height:36px;
+    border-radius:50%;
+    border:2px solid var(--purple);
+    position:fixed;
+    top:0;left:0;
+    pointer-events:none;
+    z-index:9998;
+    transition:all 0.15s ease;
+  }
+
+  /* CIRCUIT BACKGROUND */
+  #circuit-bg{
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    z-index:0;pointer-events:none;opacity:0.06;
+  }
+
+  /* FLOATING PARTICLES */
+  .particle{
+    position:fixed;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:1;
+    animation:floatParticle linear infinite;
+  }
+  @keyframes floatParticle{
+    0%{transform:translateY(100vh) rotate(0deg);opacity:0;}
+    10%{opacity:1;}
+    90%{opacity:1;}
+    100%{transform:translateY(-10vh) rotate(360deg);opacity:0;}
+  }
+
+  /* NAVBAR */
+  nav{
+    position:fixed;top:0;left:0;width:100%;z-index:1000;
+    background:rgba(10,10,26,0.85);
+    backdrop-filter:blur(20px);
+    border-bottom:2px solid var(--border);
+    padding:0 2rem;
+    display:flex;align-items:center;justify-content:space-between;
+    height:64px;
+  }
+  .nav-logo{
+    font-family:'Orbitron',sans-serif;
+    font-size:1.1rem;font-weight:900;
+    color:var(--cyan);
+    text-shadow:0 0 10px var(--cyan);
+    letter-spacing:2px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .nav-logo span{color:var(--yellow);}
+  .nav-links{display:flex;gap:0.3rem;list-style:none;}
+  .nav-links li a{
+    font-family:'Orbitron',sans-serif;
+    font-size:0.65rem;font-weight:600;
+    color:var(--muted);
+    text-decoration:none;
+    padding:6px 12px;
+    border-radius:20px;
+    border:1.5px solid transparent;
+    transition:all 0.3s ease;
+    letter-spacing:1px;
+    position:relative;
+    overflow:hidden;
+  }
+  .nav-links li a::before{
+    content:'';
+    position:absolute;inset:0;
+    background:linear-gradient(135deg,var(--cyan),var(--purple));
+    opacity:0;
+    transition:opacity 0.3s;
+    border-radius:20px;
+    z-index:-1;
+  }
+  .nav-links li a:hover,
+  .nav-links li a.active{
+    color:var(--white);
+    border-color:var(--cyan);
+    box-shadow:0 0 15px rgba(0,245,255,0.3);
+  }
+  .nav-links li a:hover::before,
+  .nav-links li a.active::before{opacity:0.2;}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px;}
+  .hamburger span{width:25px;height:2px;background:var(--cyan);border-radius:2px;transition:all 0.3s;}
+
+  /* SECTIONS */
+  section{
+    position:relative;z-index:2;
+    min-height:100vh;
+    padding:100px 2rem 60px;
+    max-width:1200px;
+    margin:0 auto;
+  }
+  .section-tag{
+    font-family:'Press Start 2P',monospace;
+    font-size:0.55rem;
+    color:var(--yellow);
+    letter-spacing:3px;
+    margin-bottom:12px;
+    display:block;
+  }
+  .section-title{
+    font-family:'Orbitron',sans-serif;
+    font-size:clamp(1.8rem,4vw,3rem);
+    font-weight:900;
+    line-height:1.1;
+    margin-bottom:1.5rem;
+  }
+  .gradient-text{
+    background:linear-gradient(135deg,var(--cyan),var(--purple));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .yellow-text{color:var(--yellow);text-shadow:0 0 15px rgba(255,233,74,0.5);}
+  .cyan-text{color:var(--cyan);text-shadow:0 0 15px rgba(0,245,255,0.5);}
+
+  /* ========== HERO ========== */
+  #hero{
+    display:flex;flex-direction:column;
+    justify-content:center;align-items:flex-start;
+    min-height:100vh;padding-top:80px;
+  }
+  .hero-eyebrow{
+    font-family:'Press Start 2P',monospace;
+    font-size:0.55rem;
+    color:var(--green);
+    letter-spacing:4px;
+    margin-bottom:20px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .hero-eyebrow::before{
+    content:'';width:40px;height:2px;
+    background:var(--green);
+    box-shadow:0 0 8px var(--green);
+  }
+  .hero-name{
+    font-family:'Orbitron',sans-serif;
+    font-size:clamp(1.4rem,3.5vw,2.5rem);
+    font-weight:700;
+    color:var(--white);
+    margin-bottom:10px;
+    opacity:0;
+    animation:slideUp 0.8s ease 0.3s forwards;
+  }
+  .hero-title{
+    font-family:'Orbitron',sans-serif;
+    font-size:clamp(2.5rem,7vw,5.5rem);
+    font-weight:900;
+    line-height:1;
+    margin-bottom:20px;
+    opacity:0;
+    animation:slideUp 0.8s ease 0.5s forwards;
+  }
+  .typewriter-wrap{
+    font-family:'Orbitron',sans-serif;
+    font-size:clamp(1rem,2.5vw,1.6rem);
+    font-weight:600;
+    color:var(--cyan);
+    margin-bottom:30px;
+    height:2.5rem;
+    display:flex;align-items:center;gap:8px;
+    opacity:0;
+    animation:slideUp 0.8s ease 0.7s forwards;
+  }
+  #typewriter{display:inline;}
+  .cursor-blink{
+    display:inline-block;width:3px;height:1.2em;
+    background:var(--cyan);
+    animation:blink 0.7s infinite;
+    vertical-align:middle;
+  }
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+  .hero-desc{
+    font-size:1.05rem;color:var(--muted);
+    max-width:580px;line-height:1.8;margin-bottom:40px;
+    opacity:0;animation:slideUp 0.8s ease 0.9s forwards;
+  }
+  .hero-btns{
+    display:flex;gap:16px;flex-wrap:wrap;
+    opacity:0;animation:slideUp 0.8s ease 1.1s forwards;
+  }
+  .btn-primary{
+    font-family:'Orbitron',sans-serif;
+    font-size:0.75rem;font-weight:700;
+    letter-spacing:2px;
+    padding:14px 30px;
+    border-radius:50px;
+    border:none;cursor:pointer;
+    background:linear-gradient(135deg,var(--cyan),var(--purple));
+    color:var(--white);
+    position:relative;overflow:hidden;
+    transition:transform 0.2s ease,box-shadow 0.2s ease;
+    text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-primary:hover{
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 10px 30px rgba(0,245,255,0.4);
+  }
+  .btn-primary::after{
+    content:'';position:absolute;inset:0;
+    background:rgba(255,255,255,0.15);
+    transform:translateX(-100%);
+    transition:transform 0.3s ease;
+  }
+  .btn-primary:hover::after{transform:translateX(0);}
+  .btn-secondary{
+    font-family:'Orbitron',sans-serif;
+    font-size:0.75rem;font-weight:700;
+    letter-spacing:2px;
+    padding:14px 30px;
+    border-radius:50px;
+    border:2px solid var(--yellow);
+    cursor:pointer;
+    background:transparent;
+    color:var(--yellow);
+    transition:all 0.2s ease;
+    text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-secondary:hover{
+    background:var(--yellow);color:var(--bg);
+    transform:translateY(-3px);
+    box-shadow:var(--shadow-yellow);
+  }
+
+  /* Hero floating icons */
+  .hero-floats{
+    position:absolute;right:0;top:50%;transform:translateY(-50%);
+    width:45%;height:500px;
+    display:none;
+  }
+  @media(min-width:900px){.hero-floats{display:block;}}
+  .float-icon{
+    position:absolute;
+    font-size:3rem;
+    animation:iconFloat 4s ease-in-out infinite;
+    filter:drop-shadow(0 0 15px var(--cyan));
+  }
+  .float-icon:nth-child(1){top:10%;left:20%;animation-delay:0s;}
+  .float-icon:nth-child(2){top:30%;left:60%;animation-delay:0.8s;filter:drop-shadow(0 0 15px var(--purple));}
+  .float-icon:nth-child(3){top:60%;left:10%;animation-delay:1.5s;filter:drop-shadow(0 0 15px var(--yellow));}
+  .float-icon:nth-child(4){top:70%;left:55%;animation-delay:2s;}
+  .float-icon:nth-child(5){top:5%;left:70%;animation-delay:0.4s;filter:drop-shadow(0 0 15px var(--green));}
+  @keyframes iconFloat{
+    0%,100%{transform:translateY(0) rotate(-5deg);}
+    50%{transform:translateY(-20px) rotate(5deg);}
+  }
+
+  /* Hero stats */
+  .hero-stats{
+    display:flex;gap:30px;flex-wrap:wrap;
+    margin-top:50px;padding-top:40px;
+    border-top:1px solid var(--border);
+    opacity:0;animation:slideUp 0.8s ease 1.3s forwards;
+  }
+  .stat-item{text-align:left;}
+  .stat-num{
+    font-family:'Orbitron',sans-serif;
+    font-size:2rem;font-weight:900;
+    color:var(--cyan);
+    display:block;
+  }
+  .stat-label{font-size:0.8rem;color:var(--muted);}
+
+  /* ========== ABOUT ========== */
+  #about{padding-top:120px;}
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1.5fr;
+    gap:60px;align-items:center;
+  }
+  @media(max-width:768px){.about-grid{grid-template-columns:1fr;}}
+  .avatar-wrap{
+    position:relative;display:flex;justify-content:center;
+  }
+  .avatar-box{
+    width:260px;height:260px;
+    border-radius:30px;
+    background:linear-gradient(135deg,var(--bg3),var(--bg2));
+    border:3px solid var(--cyan);
+    box-shadow:0 0 40px rgba(0,245,255,0.2),inset 0 0 40px rgba(0,245,255,0.05);
+    display:flex;align-items:center;justify-content:center;
+    font-size:7rem;
+    position:relative;
+    overflow:hidden;
+    animation:avatarGlow 3s ease-in-out infinite;
+  }
+  @keyframes avatarGlow{
+    0%,100%{box-shadow:0 0 40px rgba(0,245,255,0.2);}
+    50%{box-shadow:0 0 60px rgba(0,245,255,0.5),0 0 80px rgba(180,79,255,0.2);}
+  }
+  .avatar-badge{
+    position:absolute;bottom:-15px;right:-15px;
+    background:var(--yellow);
+    color:var(--bg);
+    font-family:'Orbitron',sans-serif;
+    font-size:0.55rem;font-weight:700;
+    padding:8px 14px;border-radius:20px;
+    letter-spacing:1px;
+    box-shadow:var(--shadow-yellow);
+  }
+  .corner-deco{
+    position:absolute;width:30px;height:30px;
+    border-color:var(--purple);border-style:solid;
+  }
+  .corner-deco.tl{top:-8px;left:-8px;border-width:3px 0 0 3px;}
+  .corner-deco.br{bottom:-8px;right:-8px;border-width:0 3px 3px 0;}
+  .about-text p{font-size:1rem;line-height:1.9;color:var(--muted);margin-bottom:16px;}
+  .about-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
+  .tag{
+    font-family:'Orbitron',sans-serif;
+    font-size:0.6rem;font-weight:600;
+    padding:6px 14px;border-radius:20px;
+    border:1.5px solid;letter-spacing:1px;
+  }
+  .tag-cyan{border-color:var(--cyan);color:var(--cyan);background:rgba(0,245,255,0.08);}
+  .tag-purple{border-color:var(--purple);color:var(--purple);background:rgba(180,79,255,0.08);}
+  .tag-yellow{border-color:var(--yellow);color:var(--yellow);background:rgba(255,233,74,0.08);}
+  .tag-green{border-color:var(--green);color:var(--green);background:rgba(57,255,136,0.08);}
+
+  /* ========== SERVICES ========== */
+  #services{padding-top:120px;}
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:24px;margin-top:40px;
+  }
+  .service-card{
+    background:var(--card);
+    border:2px solid var(--border);
+    border-radius:24px;
+    padding:32px 24px;
+    position:relative;overflow:hidden;
+    transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    cursor:pointer;
+    group:hover;
+  }
+  .service-card::before{
+    content:'';
+    position:absolute;inset:0;
+    border-radius:24px;
+    opacity:0;
+    transition:opacity 0.35s;
+  }
+  .service-card:hover{
+    transform:translateY(-10px) scale(1.03);
+    border-color:transparent;
+  }
+  .service-card:hover::before{opacity:1;}
+  .sc-1::before{background:linear-gradient(135deg,rgba(0,245,255,0.15),transparent);}
+  .sc-1:hover{box-shadow:0 20px 60px rgba(0,245,255,0.25),0 0 0 2px var(--cyan);}
+  .sc-2::before{background:linear-gradient(135deg,rgba(180,79,255,0.15),transparent);}
+  .sc-2:hover{box-shadow:0 20px 60px rgba(180,79,255,0.25),0 0 0 2px var(--purple);}
+  .sc-3::before{background:linear-gradient(135deg,rgba(255,79,163,0.15),transparent);}
+  .sc-3:hover{box-shadow:0 20px 60px rgba(255,79,163,0.25),0 0 0 2px var(--pink);}
+  .sc-4::before{background:linear-gradient(135deg,rgba(255,233,74,0.15),transparent);}
+  .sc-4:hover{box-shadow:0 20px 60px rgba(255,233,74,0.25),0 0 0 2px var(--yellow);}
+  .sc-5::before{background:linear-gradient(135deg,rgba(57,255,136,0.15),transparent);}
+  .sc-5:hover{box-shadow:0 20px 60px rgba(57,255,136,0.25),0 0 0 2px var(--green);}
+  .svc-icon{font-size:3rem;margin-bottom:20px;display:block;}
+  .svc-title{
+    font-family:'Orbitron',sans-serif;
+    font-size:0.9rem;font-weight:700;
+    margin-bottom:12px;color:var(--white);
+  }
+  .svc-desc{font-size:0.85rem;color:var(--muted);line-height:1.7;}
+  .svc-tag{
+    display:inline-block;
+    font-family:'Press Start 2P',monospace;
+    font-size:0.4rem;
+    padding:4px 10px;border-radius:10px;
+    margin-top:16px;
+    background:rgba(0,245,255,0.15);
+    color:var(--cyan);
+    border:1px solid rgba(0,245,255,0.3);
+  }
+
+  /* ========== PORTFOLIO ========== */
+  #portfolio{padding-top:120px;}
+  .filter-btns{
+    display:flex;gap:10px;flex-wrap:wrap;margin:30px 0;
+  }
+  .filter-btn{
+    font-family:'Orbitron',sans-serif;
+    font-size:0.6rem;font-weight:600;
+    letter-spacing:1px;
+    padding:8px 20px;border-radius:20px;
+    border:1.5px solid var(--border);
+    background:transparent;
+    color:var(--muted);
+    cursor:pointer;transition:all 0.25s ease;
+  }
+  .filter-btn:hover,
+  .filter-btn.active{
+    border-color:var(--cyan);color:var(--cyan);
+    background:rgba(0,245,255,0.1);
+    box-shadow:0 0 15px rgba(0,245,255,0.2);
+  }
+  .projects-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:24px;
+  }
+  .project-card{
+    background:var(--card);
+    border:2px solid var(--border);
+    border-radius:20px;
+    overflow:hidden;
+    transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    cursor:pointer;
+    opacity:1;transform:scale(1);
+  }
+  .project-card.hidden{
+    opacity:0;transform:scale(0.8);pointer-events:none;
+    position:absolute;
+  }
+  .project-card:hover{
+    transform:translateY(-8px);
+    border-color:var(--cyan);
+    box-shadow:0 20px 40px rgba(0,245,255,0.2);
+  }
+  .project-img{
+    width:100%;height:160px;
+    background:linear-gradient(135deg,var(--bg3),var(--bg2));
+    display:flex;align-items:center;justify-content:center;
+    font-size:4rem;
+    position:relative;overflow:hidden;
+    border-bottom:2px solid var(--border);
+  }
+  .project-img::after{
+    content:'';
+    position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(0,245,255,0.1),rgba(180,79,255,0.1));
+  }
+  .project-body{padding:20px;}
+  .badge{
+    font-family:'Press Start 2P',monospace;
+    font-size:0.38rem;
+    padding:4px 10px;border-radius:10px;
+    margin-bottom:12px;display:inline-block;
+    letter-spacing:1px;
+  }
+  .badge-beginner{background:rgba(57,255,136,0.2);color:var(--green);border:1px solid var(--green);}
+  .badge-intermediate{background:rgba(0,245,255,0.2);color:var(--cyan);border:1px solid var(--cyan);}
+  .badge-advanced{background:rgba(255,79,163,0.2);color:var(--pink);border:1px solid var(--pink);}
+  .badge-boardlevel{background:rgba(255,233,74,0.2);color:var(--yellow);border:1px solid var(--yellow);}
+  .badge-webapp{background:rgba(180,79,255,0.2);color:var(--purple);border:1px solid var(--purple);}
+  .project-title{
+    font-family:'Orbitron',sans-serif;
+    font-size:0.85rem;font-weight:700;
+    color:var(--white);margin-bottom:8px;
+  }
+  .project-desc{font-size:0.82rem;color:var(--muted);line-height:1.6;}
+
+  /* ========== SKILLS ========== */
+  #skills{padding-top:120px;}
+  .skills-grid{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:50px;margin-top:40px;
+  }
+  @media(max-width:700px){.skills-grid{grid-template-columns:1fr;}}
+  .skill-group-title{
+    font-family:'Orbitron',sans-serif;
+    font-size:0.8rem;font-weight:700;
+    color:var(--white);
+    margin-bottom:30px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .skill-group-title::after{
+    content:'';flex:1;height:1px;
+    background:linear-gradient(to right,var(--border),transparent);
+  }
+  .skill-item{margin-bottom:24px;}
+  .skill-header{
+    display:flex;justify-content:space-between;
+    margin-bottom:8px;
+  }
+  .skill-name{font-size:0.9rem;font-weight:700;color:var(--text);}
+  .skill-pct{
+    font-family:'Orbitron',sans-serif;
+    font-size:0.75rem;font-weight:700;
+    color:var(--cyan);
+  }
+  .skill-bar-bg{
+    height:10px;border-radius:10px;
+    background:var(--bg3);
+    border:1px solid var(--border);
+    overflow:hidden;
+  }
+  .skill-bar-fill{
+    height:100%;border-radius:10px;
+    width:0%;
+    transition:width 1.5s cubic-bezier(0.34,1.56,0.64,1);
+    position:relative;
+  }
+  .skill-bar-fill::after{
+    content:'';
+    position:absolute;right:0;top:50%;transform:translateY(-50%);
+    width:12px;height:12px;border-radius:50%;
+    background:inherit;
+    box-shadow:0 0 10px currentColor;
+  }
+  .bar-cyan{background:linear-gradient(to right,var(--cyan),var(--purple));}
+  .bar-purple{background:linear-gradient(to right,var(--purple),var(--pink));}
+  .bar-yellow{background:linear-gradient(to right,var(--yellow),var(--green));}
+
+  /* ========== WHY ME ========== */
+  #whyme{padding-top:120px;}
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:24px;margin-top:40px;
+  }
+  .why-card{
+    background:var(--card);
+    border:2px solid var(--border);
+    border-radius:20px;padding:30px 24px;
+    text-align:center;
+    transition:all 0.3s ease;
+    position:relative;overflow:hidden;
+  }
+  .why-card::before{
+    content:'';
+    position:absolute;top:0;left:-100%;
+    width:100%;height:100%;
+    background:linear-gradient(135deg,rgba(0,245,255,0.08),rgba(180,79,255,0.08));
+    transition:left 0.4s ease;
+  }
+  .why-card:hover::before{left:0;}
+  .why-card:hover{
+    border-color:var(--purple);
+    transform:translateY(-5px);
+    box-shadow:0 15px 40px rgba(180,79,255,0.2);
+  }
+  .why-icon{font-size:2.5rem;margin-bottom:16px;display:block;}
+  .why-title{
+    font-family:'Orbitron',sans-serif;
+    font-size:0.8rem;font-weight:700;
+    color:var(--white);margin-bottom:10px;
+  }
+  .why-desc{font-size:0.82rem;color:var(--muted);line-height:1.6;}
+
+  /* ========== CONTACT ========== */
+  #contact{padding-top:120px;padding-bottom:120px;}
+  .contact-grid{
+    display:grid;grid-template-columns:1fr 1.2fr;
+    gap:60px;margin-top:40px;
+  }
+  @media(max-width:768px){.contact-grid{grid-template-columns:1fr;}}
+  .contact-info h3{
+    font-family:'Orbitron',sans-serif;
+    font-size:1.2rem;font-weight:700;
+    color:var(--white);margin-bottom:20px;
+  }
+  .contact-info p{font-size:0.95rem;color:var(--muted);line-height:1.8;margin-bottom:30px;}
+  .contact-links{display:flex;flex-direction:column;gap:16px;}
+  .contact-link{
+    display:flex;align-items:center;gap:14px;
+    text-decoration:none;
+    padding:14px 20px;border-radius:16px;
+    background:var(--card);
+    border:1.5px solid var(--border);
+    transition:all 0.3s ease;
+    color:var(--text);
+  }
+  .contact-link:hover{
+    border-color:var(--cyan);
+    box-shadow:var(--shadow-cyan);
+    transform:translateX(5px);
+  }
+  .contact-link .icon{font-size:1.4rem;}
+  .contact-link .info .label{
+    font-family:'Orbitron',sans-serif;
+    font-size:0.55rem;color:var(--muted);letter-spacing:2px;
+    display:block;margin-bottom:4px;
+  }
+  .contact-link .info .value{font-size:0.9rem;font-weight:700;color:var(--white);}
+  .contact-form{display:flex;flex-direction:column;gap:16px;}
+  .form-group{display:flex;flex-direction:column;gap:8px;}
+  .form-group label{
+    font-family:'Orbitron',sans-serif;
+    font-size:0.6rem;color:var(--muted);letter-spacing:2px;
+  }
+  .form-group input,
+  .form-group textarea{
+    background:var(--card);
+    border:1.5px solid var(--border);
+    border-radius:12px;
+    padding:14px 18px;
+    color:var(--text);
+    font-family:'Nunito',sans-serif;
+    font-size:0.95rem;
+    outline:none;
+    transition:all 0.3s ease;
+    resize:none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus{
+    border-color:var(--cyan);
+    box-shadow:0 0 0 3px rgba(0,245,255,0.1);
+  }
+  .form-group textarea{height:120px;}
+
+  /* FOOTER */
+  footer{
+    position:relative;z-index:2;
+    border-top:1px solid var(--border);
+    padding:30px 2rem;
+    text-align:center;
+    background:rgba(10,10,26,0.8);
+  }
+  footer p{font-size:0.8rem;color:var(--muted);}
+  footer span{color:var(--cyan);}
+
+  /* ANIMATIONS */
+  @keyframes slideUp{
+    from{opacity:0;transform:translateY(40px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  .reveal{
+    opacity:0;transform:translateY(30px);
+    transition:all 0.7s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .reveal-left{
+    opacity:0;transform:translateX(-40px);
+    transition:all 0.7s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .reveal-left.visible{opacity:1;transform:translateX(0);}
+  .reveal-right{
+    opacity:0;transform:translateX(40px);
+    transition:all 0.7s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .reveal-right.visible{opacity:1;transform:translateX(0);}
+
+  /* GLOW DIVIDER */
+  .glow-divider{
+    width:100%;height:1px;
+    background:linear-gradient(to right,transparent,var(--cyan),var(--purple),transparent);
+    margin:0 auto;
+    position:relative;z-index:2;
+    opacity:0.4;
+  }
+
+  /* TOOLTIP */
+  .scroll-indicator{
+    position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    animation:bounce 2s ease-in-out infinite;
+    opacity:0;animation:slideUp 1s ease 1.8s forwards, bounce 2s ease-in-out 2.8s infinite;
+  }
+  .scroll-indicator span{
+    font-family:'Press Start 2P',monospace;
+    font-size:0.45rem;color:var(--muted);letter-spacing:2px;
+  }
+  .scroll-arrow{
+    width:20px;height:20px;
+    border-right:2px solid var(--cyan);
+    border-bottom:2px solid var(--cyan);
+    transform:rotate(45deg);
+  }
+  @keyframes bounce{
+    0%,100%{transform:translateX(-50%) translateY(0);}
+    50%{transform:translateX(-50%) translateY(8px);}
+  }
+  @keyframes spin{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+  }
+
+  /* MOBILE NAV */
+  .mobile-menu{
+    position:fixed;top:64px;left:0;width:100%;
+    background:rgba(10,10,26,0.98);
+    backdrop-filter:blur(20px);
+    border-bottom:2px solid var(--border);
+    z-index:999;
+    display:flex;flex-direction:column;
+    padding:20px;gap:10px;
+    transform:translateY(-200%);
+    transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .mobile-menu.open{transform:translateY(0);}
+  .mobile-menu a{
+    font-family:'Orbitron',sans-serif;
+    font-size:0.75rem;font-weight:600;
+    color:var(--muted);text-decoration:none;
+    padding:12px 20px;border-radius:12px;
+    border:1px solid var(--border);
+    letter-spacing:1px;
+    transition:all 0.2s;
+  }
+  .mobile-menu a:hover{color:var(--cyan);border-color:var(--cyan);}
+
+  @media(max-width:768px){
+    .nav-links{display:none;}
+    .hamburger{display:flex;}
+    section{padding:100px 1.2rem 60px;}
+  }
+
+  /* Glitch effect for hero title */
+  .glitch{
+    position:relative;
+  }
+  .glitch::before,
+  .glitch::after{
+    content:attr(data-text);
+    position:absolute;top:0;left:0;width:100%;height:100%;
+  }
+  .glitch::before{
+    color:var(--cyan);
+    animation:glitch1 4s infinite;
+    clip-path:polygon(0 0,100% 0,100% 35%,0 35%);
+  }
+  .glitch::after{
+    color:var(--purple);
+    animation:glitch2 4s infinite;
+    clip-path:polygon(0 65%,100% 65%,100% 100%,0 100%);
+  }
+  @keyframes glitch1{
+    0%,95%,100%{transform:translate(0);}
+    96%{transform:translate(-3px,1px);}
+    97%{transform:translate(3px,-1px);}
+    98%{transform:translate(-1px,2px);}
+  }
+  @keyframes glitch2{
+    0%,95%,100%{transform:translate(0);}
+    96%{transform:translate(3px,-1px);}
+    97%{transform:translate(-3px,1px);}
+    98%{transform:translate(2px,-2px);}
+  }
+
+  /* Notification toast */
+  .toast{
+    position:fixed;bottom:30px;right:30px;
+    background:var(--card);
+    border:1.5px solid var(--green);
+    border-radius:16px;
+    padding:16px 24px;
+    font-family:'Orbitron',sans-serif;
+    font-size:0.7rem;color:var(--green);
+    box-shadow:0 0 30px rgba(57,255,136,0.3);
+    z-index:9000;
+    transform:translateX(200px);
+    opacity:0;
+    transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .toast.show{transform:translateX(0);opacity:1;}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- Toast -->
+<div class="toast" id="toast">✅ Message Sent!</div>
+
+<!-- Circuit Background SVG -->
+<svg id="circuit-bg" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="circuit" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M0 40 H25 M55 40 H80 M40 0 V25 M40 55 V80" stroke="#00f5ff" stroke-width="0.8" fill="none"/>
+      <circle cx="40" cy="40" r="4" fill="none" stroke="#00f5ff" stroke-width="0.8"/>
+      <circle cx="0" cy="40" r="2" fill="#00f5ff"/>
+      <circle cx="80" cy="40" r="2" fill="#00f5ff"/>
+      <circle cx="40" cy="0" r="2" fill="#00f5ff"/>
+      <circle cx="40" cy="80" r="2" fill="#00f5ff"/>
+      <path d="M25 40 Q32 40 32 32 Q32 20 40 20" stroke="#b44fff" stroke-width="0.6" fill="none"/>
+      <path d="M55 40 Q48 40 48 48 Q48 60 40 60" stroke="#b44fff" stroke-width="0.6" fill="none"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#circuit)"/>
+</svg>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#hero">🏠 Home</a>
+  <a href="#about">👤 About</a>
+  <a href="#services">⚙️ Services</a>
+  <a href="#portfolio">🗂 Portfolio</a>
+  <a href="#skills">💡 Skills</a>
+  <a href="#contact">📩 Contact</a>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-logo">⚡ ED<span>TECH</span></div>
+  <ul class="nav-links">
+    <li><a href="#hero" class="nav-link active">Home</a></li>
+    <li><a href="#about" class="nav-link">About</a></li>
+    <li><a href="#services" class="nav-link">Services</a></li>
+    <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+    <li><a href="#skills" class="nav-link">Skills</a></li>
+    <li><a href="#whyme" class="nav-link">Why Me</a></li>
+    <li><a href="#contact" class="nav-link">Contact</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section id="hero">
+  <div class="hero-eyebrow">Available for Repair & Dev Projects</div>
+  <p class="hero-name">John Edmar B. Abaño</p>
+  <h1 class="hero-title">
+    <span class="glitch gradient-text" data-text="EDTECH">EDTECH</span><br>
+    <span style="color:var(--white);">Repair</span>
+    <span class="yellow-text"> Services</span>
+  </h1>
+  <div class="typewriter-wrap">
+    <span id="typewriter"></span>
+    <span class="cursor-blink"></span>
+  </div>
+  <p class="hero-desc">
+    Your trusted tech wizard for hardware & software repairs — from basic fixes to advanced board-level microsurgery. Also building modern websites and mobile apps for businesses ready to level up online. 🔧💻
+  </p>
+  <div class="hero-btns">
+    <a href="#portfolio" class="btn-primary">🗂 View My Work</a>
+    <a href="#contact" class="btn-secondary">🔧 Book a Repair</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num" data-count="200">0</span>
+      <span class="stat-label">Devices Repaired+</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-count="50">0</span>
+      <span class="stat-label">Happy Clients+</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-count="3">0</span>
+      <span class="stat-label">Years Experience</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-count="15">0</span>
+      <span class="stat-label">Projects Built</span>
+    </div>
+  </div>
+  <div class="hero-floats">
+    <div class="float-icon">📱</div>
+    <div class="float-icon">💻</div>
+    <div class="float-icon">🔧</div>
+    <div class="float-icon">⚙️</div>
+    <div class="float-icon">🖥️</div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll Down</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- ========== ABOUT ========== -->
+<section id="about">
+  <span class="section-tag">// WHO AM I</span>
+  <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+  <div class="about-grid">
+    <div class="avatar-wrap reveal-left">
+      <div style="position:relative;display:inline-block;">
+        <div class="avatar-box">🧑‍💻</div>
+        <div class="corner-deco tl"></div>
+        <div class="corner-deco br"></div>
+        <div class="avatar-badge">⭐ VERIFIED TECH</div>
+      </div>
+    </div>
+    <div class="about-text reveal-right">
+      <p>Hey there! I'm <strong style="color:var(--cyan);">John Edmar</strong>, founder of <strong style="color:var(--yellow);">EDTECH Repair Services</strong> — a passionate home-based tech repair hub located in the Philippines.</p>
+      <p>I specialize in bringing broken devices back to life, from common software glitches to the most intricate board-level repairs involving micro-soldering and component-level diagnostics. Every device has a story, and I make sure it keeps going.</p>
+      <p>Beyond repairs, I help businesses and entrepreneurs establish their digital presence through clean, modern, and functional websites and mobile apps built with the latest technologies.</p>
+      <div class="about-tags">
+        <span class="tag tag-cyan">📱 Mobile Repair</span>
+        <span class="tag tag-purple">💻 Laptop Repair</span>
+        <span class="tag tag-yellow">🔬 Board-Level</span>
+        <span class="tag tag-green">🌐 Web Dev</span>
+        <span class="tag tag-cyan">📲 App Dev</span>
+        <span class="tag tag-purple">🛠 Hardware</span>
+        <span class="tag tag-yellow">⚙️ Software</span>
+        <span class="tag tag-green">🎨 UI/UX</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- ========== SERVICES ========== -->
+<section id="services">
+  <span class="section-tag">// WHAT I DO</span>
+  <h2 class="section-title">My <span class="gradient-text">Services</span></h2>
+  <p style="color:var(--muted);max-width:600px;line-height:1.8;" class="reveal">From fixing cracked screens to building business apps — I've got your tech needs covered, all under one roof.</p>
+  <div class="services-grid">
+    <div class="service-card sc-1 reveal">
+      <span class="svc-icon">📱</span>
+      <h3 class="svc-title">Mobile Phone Repair</h3>
+      <p class="svc-desc">Screen replacements, battery swaps, charging port fixes, software flashing, IMEI issues, and full diagnostics for Android & iOS devices.</p>
+      <span class="svc-tag">HARDWARE + SOFTWARE</span>
+    </div>
+    <div class="service-card sc-2 reveal">
+      <span class="svc-icon">💻</span>
+      <h3 class="svc-title">Laptop & PC Repair</h3>
+      <p class="svc-desc">OS reinstalls, virus removal, RAM & SSD upgrades, keyboard replacements, thermal paste application, and full system tune-ups.</p>
+      <span class="svc-tag" style="color:var(--purple);background:rgba(180,79,255,0.15);border-color:rgba(180,79,255,0.3);">ALL BRANDS</span>
+    </div>
+    <div class="service-card sc-3 reveal">
+      <span class="svc-icon">🔬</span>
+      <h3 class="svc-title">Board-Level Repair</h3>
+      <p class="svc-desc">Advanced micro-soldering, IC chip replacement, power management troubleshooting, and component-level diagnosis for motherboards.</p>
+      <span class="svc-tag" style="color:var(--pink);background:rgba(255,79,163,0.15);border-color:rgba(255,79,163,0.3);">ADVANCED LEVEL</span>
+    </div>
+    <div class="service-card sc-4 reveal">
+      <span class="svc-icon">🌐</span>
+      <h3 class="svc-title">Web Development</h3>
+      <p class="svc-desc">Business websites, e-commerce stores, landing pages, and web apps built with modern frameworks. Responsive, fast, and SEO-ready.</p>
+      <span class="svc-tag" style="color:var(--yellow);background:rgba(255,233,74,0.15);border-color:rgba(255,233,74,0.3);">CUSTOM BUILT</span>
+    </div>
+    <div class="service-card sc-5 reveal">
+      <span class="svc-icon">📲</span>
+      <h3 class="svc-title">Mobile App Development</h3>
+      <p class="svc-desc">Cross-platform mobile apps for Android & iOS. Business apps, booking systems, inventory tools, and client portals built to scale.</p>
+      <span class="svc-tag" style="color:var(--green);background:rgba(57,255,136,0.15);border-color:rgba(57,255,136,0.3);">ANDROID & IOS</span>
+    </div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- ========== PORTFOLIO ========== -->
+<section id="portfolio">
+  <span class="section-tag">// MY WORK</span>
+  <h2 class="section-title">Portfolio <span class="gradient-text">Projects</span></h2>
+  <p style="color:var(--muted);max-width:600px;line-height:1.8;" class="reveal">A showcase of repair jobs and development projects — ranging from everyday fixes to complex board-level repair and full-stack web builds.</p>
+  <div class="filter-btns reveal">
+    <button class="filter-btn active" data-filter="all">All Projects</button>
+    <button class="filter-btn" data-filter="hardware">🔧 Hardware Repair</button>
+    <button class="filter-btn" data-filter="software">⚙️ Software Fix</button>
+    <button class="filter-btn" data-filter="boardlevel">🔬 Board-Level</button>
+    <button class="filter-btn" data-filter="webdev">🌐 Web & App Dev</button>
+  </div>
+  <div class="projects-grid" id="projectsGrid">
+
+    <div class="project-card" data-cat="hardware">
+      <div class="project-img">📱</div>
+      <div class="project-body">
+        <span class="badge badge-beginner">BEGINNER</span>
+        <h3 class="project-title">iPhone Screen Replacement</h3>
+        <p class="project-desc">Full OLED screen replacement for iPhone 12 Pro. Replaced digitizer, restored True Tone functionality.</p>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="hardware">
+      <div class="project-img">💻</div>
+      <div class="project-body">
+        <span class="badge badge-intermediate">INTERMEDIATE</span>
+        <h3 class="project-title">Laptop Battery & Keyboard Swap</h3>
+        <p class="project-desc">Asus VivoBook battery replacement + keyboard disassembly and replacement with full testing.</p>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="boardlevel">
+      <div class="project-img">🔬</div>
+      <div class="project-body">
+        <span class="badge badge-boardlevel">BOARD-LEVEL</span>
+        <h3 class="project-title">Samsung No Power — IC Repair</h3>
+        <p class="project-desc">Diagnosed and replaced faulty power management IC on Samsung Galaxy A32 motherboard using micro-soldering.</p>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="software">
+      <div class="project-img">⚙️</div>
+      <div class="project-body">
+        <span class="badge badge-beginner">BEGINNER</span>
+        <h3 class="project-title">Windows OS Reinstall & Optimization</h3>
+        <p class="project-desc">Clean Windows 11 install, driver updates, antivirus setup, and performance tweaks for a sluggish HP laptop.</p>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="boardlevel">
+      <div class="project-img">🖥️</div>
+      <div class="project-body">
+        <span class="badge badge-boardlevel">BOARD-LEVEL</span>
+        <h3 class="project-title">Laptop Motherboard — Liquid Damage</h3>
+        <p class="project-desc">Full liquid damage cleanup, capacitor and resistor replacement on Lenovo ThinkPad board. Fully restored.</p>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="software">
+      <div class="project-img">📱</div>
+      <div class="project-body">
+        <span class="badge badge-intermediate">INTERMEDIATE</span>
+        <h3 class="project-title">Android Firmware Flash & Unlock</h3>
+        <p class="project-desc">Custom firmware flashing, FRP bypass, and bootloader unlock for Xiaomi Redmi Note 11.</p>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="webdev">
+      <div class="project-img">🌐</div>
+      <div class="project-body">
+        <span class="badge badge-webapp">WEB DEV</span>
+        <h3 class="project-title">Business Landing Page</h3>
+        <p class="project-desc">Responsive business website for a local food business featuring online menu, contact form, and Google Maps integration.</p>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="webdev">
+      <div class="project-img">📲</div>
+      <div class="project-body">
+        <span class="badge badge-webapp">APP DEV</span>
+        <h3 class="project-title">Inventory Management App</h3>
+        <p class="project-desc">Mobile app for a small retail store — tracks stock, generates reports, and sends low-stock alerts. Built with React Native.</p>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="boardlevel">
+      <div class="project-img">🔧</div>
+      <div class="project-body">
+        <span class="badge badge-advanced">ADVANCED</span>
+        <h3 class="project-title">iPhone Touch Disease Fix</h3>
+        <p class="project-desc">Reballed and re-soldered Meson chip on iPhone 6 Plus motherboard to fix unresponsive touchscreen — touch disease repair.</p>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="webdev">
+      <div class="project-img">🎨</div>
+      <div class="project-body">
+        <span class="badge badge-webapp">WEB DEV</span>
+        <h3 class="project-title">Online Booking System</h3>
+        <p class="project-desc">Web app for a salon business — online appointment booking, client management dashboard, and automated SMS reminders.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- ========== SKILLS ========== -->
+<section id="skills">
+  <span class="section-tag">// EXPERTISE</span>
+  <h2 class="section-title">My <span class="gradient-text">Skills</span></h2>
+  <div class="skills-grid">
+    <div class="reveal-left">
+      <div class="skill-group-title">🔧 Repair & Hardware</div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">Soldering & Micro-Soldering</span>
+          <span class="skill-pct">90%</span>
+        </div>
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill bar-cyan" data-width="90"></div>
+        </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">Motherboard / Board-Level Repair</span>
+          <span class="skill-pct">85%</span>
+        </div>
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill bar-cyan" data-width="85"></div>
+        </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">Android / iOS Troubleshooting</span>
+          <span class="skill-pct">95%</span>
+        </div>
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill bar-cyan" data-width="95"></div>
+        </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">PC / Laptop Hardware Repair</span>
+          <span class="skill-pct">90%</span>
+        </div>
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill bar-cyan" data-width="90"></div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="skill-group-title">💻 Development</div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">Web Development</span>
+          <span class="skill-pct">88%</span>
+        </div>
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill bar-purple" data-width="88"></div>
+        </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">Mobile App Development</span>
+          <span class="skill-pct">80%</span>
+        </div>
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill bar-purple" data-width="80"></div>
+        </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">UI / UX Design</span>
+          <span class="skill-pct">75%</span>
+        </div>
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill bar-yellow" data-width="75"></div>
+        </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header">
+          <span class="skill-name">Backend & Database</span>
+          <span class="skill-pct">72%</span>
+        </div>
+        <div class="skill-bar-bg">
+          <div class="skill-bar-fill bar-yellow" data-width="72"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- ========== WHY ME ========== -->
+<section id="whyme">
+  <span class="section-tag">// WHY CHOOSE ME</span>
+  <h2 class="section-title">The <span class="gradient-text">EDTECH</span> Advantage</h2>
+  <div class="why-grid">
+    <div class="why-card reveal">
+      <span class="why-icon">⚡</span>
+      <h3 class="why-title">Fast Turnaround</h3>
+      <p class="why-desc">Most repairs completed within 24–48 hours. No long waiting lines, no unnecessary delays.</p>
+    </div>
+    <div class="why-card reveal">
+      <span class="why-icon">💎</span>
+      <h3 class="why-title">Quality Parts</h3>
+      <p class="why-desc">Only original or high-grade compatible parts used. Your device deserves nothing but the best.</p>
+    </div>
+    <div class="why-card reveal">
+      <span class="why-icon">💰</span>
+      <h3 class="why-title">Affordable Rates</h3>
+      <p class="why-desc">Honest pricing with no hidden fees. Budget-friendly solutions without compromising quality.</p>
+    </div>
+    <div class="why-card reveal">
+      <span class="why-icon">🤝</span>
+      <h3 class="why-title">Personalized Service</h3>
+      <p class="why-desc">Every client gets personal attention. I listen, diagnose thoroughly, and explain everything clearly.</p>
+    </div>
+    <div class="why-card reveal">
+      <span class="why-icon">🛡️</span>
+      <h3 class="why-title">Repair Warranty</h3>
+      <p class="why-desc">All repairs come with a service warranty. If something's off, I'll fix it — no extra charge.</p>
+    </div>
+    <div class="why-card reveal">
+      <span class="why-icon">📍</span>
+      <h3 class="why-title">Home-Based & Local</h3>
+      <p class="why-desc">Supporting local! A trusted home-based shop that's accessible, flexible, and always ready to help.</p>
+    </div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- ========== CONTACT ========== -->
+<section id="contact">
+  <span class="section-tag">// GET IN TOUCH</span>
+  <h2 class="section-title">Contact <span class="gradient-text">Me</span></h2>
+  <div class="contact-grid">
+    <div class="reveal-left">
+      <div class="contact-info">
+        <h3>Let's Work Together! 🚀</h3>
+        <p>Got a broken device? Need a website or app for your business? Drop me a message and let's talk about how I can help you out.</p>
+      </div>
+      <div class="contact-links">
+        <a href="tel:09926420557" class="contact-link">
+          <span class="icon">📞</span>
+          <div class="info">
+            <span class="label">PHONE / VIBER / WHATSAPP</span>
+            <span class="value">0992 642 0557</span>
+          </div>
+        </a>
+        <a href="mailto:edmarabano122701@gmail.com" class="contact-link">
+          <span class="icon">✉️</span>
+          <div class="info">
+            <span class="label">EMAIL</span>
+            <span class="value">edmarabano122701@gmail.com</span>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/john-edmar-aba%C3%B1o-0a5016378/" target="_blank" class="contact-link">
+          <span class="icon">🔗</span>
+          <div class="info">
+            <span class="label">LINKEDIN</span>
+            <span class="value">John Edmar B. Abaño</span>
+          </div>
+        </a>
+        <a href="#" class="contact-link">
+          <span class="icon">📍</span>
+          <div class="info">
+            <span class="label">LOCATION</span>
+            <span class="value">Bacoor, Cavite, Philippines</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="contact-form" id="contactForm">
+        <div class="form-group">
+          <label>YOUR NAME</label>
+          <input type="text" id="fname" placeholder="e.g. Maria Santos"/>
+        </div>
+        <div class="form-group">
+          <label>EMAIL ADDRESS</label>
+          <input type="email" id="femail" placeholder="e.g. maria@example.com"/>
+        </div>
+        <div class="form-group">
+          <label>SERVICE NEEDED</label>
+          <input type="text" id="fservice" placeholder="e.g. Phone Repair / Website Build"/>
+        </div>
+        <div class="form-group">
+          <label>MESSAGE</label>
+          <textarea id="fmessage" placeholder="Tell me about your issue or project..."></textarea>
+        </div>
+        <button class="btn-primary" id="submitBtn" onclick="sendMessage()" style="width:100%;justify-content:center;position:relative;overflow:hidden;">
+          <span id="btnText">📩 Send Message</span>
+          <span id="btnLoader" style="display:none;align-items:center;gap:8px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin 0.8s linear infinite;">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+            </svg>
+            Sending...
+          </span>
+        </button>
+        <!-- Setup Notice -->
+        <div id="setupNotice" style="
+          margin-top:16px;padding:14px 18px;
+          background:rgba(57,255,136,0.08);
+          border:1.5px solid rgba(57,255,136,0.3);
+          border-radius:12px;font-size:0.78rem;
+          color:var(--green);line-height:1.7;
+        ">
+          ✅ <strong>All systems active!</strong> Email notifications go to <strong>edmarabano122701@gmail.com</strong> and Telegram alerts go to your bot instantly when someone submits this form.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p style="font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;margin-bottom:8px;">
+    ⚡ <span>EDTECH</span> Repair Services
+  </p>
+  <p>Built with ❤️ by <span>John Edmar B. Abaño</span> · Bacoor, Cavite, PH</p>
+  <p style="margin-top:8px;">© 2025 EDTECH Repair Services. All rights reserved.</p>
+</footer>
+
+<script>
+// ======== CUSTOM CURSOR ========
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX - 7 + 'px';
+  cursor.style.top = e.clientY - 7 + 'px';
+  ring.style.left = e.clientX - 18 + 'px';
+  ring.style.top = e.clientY - 18 + 'px';
+});
+document.querySelectorAll('a,button,.project-card,.service-card,.why-card,.filter-btn').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.transform = 'scale(2)';
+    ring.style.transform = 'scale(1.5)';
+    ring.style.borderColor = 'var(--yellow)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.transform = 'scale(1)';
+    ring.style.transform = 'scale(1)';
+    ring.style.borderColor = 'var(--purple)';
+  });
+});
+
+// ======== PARTICLES ========
+function createParticles() {
+  const colors = ['#00f5ff','#b44fff','#ffe94a','#39ff88','#ff4fa3'];
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 4 + 2;
+    p.style.cssText = `
+      width:${size}px;height:${size}px;
+      left:${Math.random()*100}%;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      animation-duration:${Math.random()*15+10}s;
+      animation-delay:${Math.random()*10}s;
+      opacity:0.5;
+    `;
+    document.body.appendChild(p);
+  }
+}
+createParticles();
+
+// ======== TYPEWRITER ========
+const phrases = [
+  "Your Trusted Tech Wizard 🔧",
+  "Board-Level Repair Expert 🔬",
+  "Web & App Developer 💻",
+  "Mobile Phone Specialist 📱",
+  "Hardware Surgeon ⚙️"
+];
+let pi = 0, ci = 0, deleting = false;
+function typewrite() {
+  const el = document.getElementById('typewriter');
+  const phrase = phrases[pi];
+  if (!deleting) {
+    el.textContent = phrase.slice(0, ++ci);
+    if (ci === phrase.length) { deleting = true; setTimeout(typewrite, 1800); return; }
+  } else {
+    el.textContent = phrase.slice(0, --ci);
+    if (ci === 0) { deleting = false; pi = (pi+1)%phrases.length; }
+  }
+  setTimeout(typewrite, deleting ? 40 : 70);
+}
+typewrite();
+
+// ======== NAVBAR ACTIVE ========
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+  navLinks.forEach(l => {
+    l.classList.remove('active');
+    if (l.getAttribute('href') === '#'+cur) l.classList.add('active');
+  });
+});
+
+// ======== HAMBURGER ========
+const ham = document.getElementById('hamburger');
+const mob = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => {
+  mob.classList.toggle('open');
+  const spans = ham.querySelectorAll('span');
+  if (mob.classList.contains('open')) {
+    spans[0].style.transform = 'rotate(45deg) translate(5px,5px)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'rotate(-45deg) translate(5px,-5px)';
+  } else {
+    spans.forEach(s => { s.style.transform=''; s.style.opacity=''; });
+  }
+});
+mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  mob.classList.remove('open');
+  ham.querySelectorAll('span').forEach(s => { s.style.transform=''; s.style.opacity=''; });
+}));
+
+// ======== SCROLL REVEAL ========
+const revealEls = document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+revealEls.forEach(el => observer.observe(el));
+
+// ======== SKILL BARS ========
+const skillObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+        setTimeout(() => { bar.style.width = bar.dataset.width + '%'; }, 300);
+      });
+      skillObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('#skills .skills-grid > div').forEach(el => skillObs.observe(el));
+
+// ======== COUNTER ANIMATION ========
+const countObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('[data-count]').forEach(el => {
+        const target = parseInt(el.dataset.count);
+        let current = 0;
+        const step = target / 60;
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) { el.textContent = target + '+'; clearInterval(timer); return; }
+          el.textContent = Math.floor(current) + '+';
+        }, 25);
+      });
+      countObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+const heroStats = document.querySelector('.hero-stats');
+if (heroStats) countObs.observe(heroStats);
+
+// ======== PORTFOLIO FILTER ========
+const filterBtns = document.querySelectorAll('.filter-btn');
+const projectCards = document.querySelectorAll('.project-card');
+const grid = document.getElementById('projectsGrid');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+
+    // Animate out then filter
+    projectCards.forEach(card => {
+      card.style.transition = 'all 0.3s ease';
+      card.style.opacity = '0';
+      card.style.transform = 'scale(0.85)';
+    });
+
+    setTimeout(() => {
+      // Switch to a temporary flow approach
+      grid.style.position = 'relative';
+      projectCards.forEach(card => {
+        const cat = card.dataset.cat;
+        const show = filter === 'all' || cat === filter;
+        if (show) {
+          card.style.display = 'block';
+          card.style.position = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Animate in
+      setTimeout(() => {
+        projectCards.forEach(card => {
+          if (card.style.display !== 'none') {
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1)';
+          }
+        });
+      }, 50);
+    }, 280);
+  });
+});
+
+// ======== CONTACT FORM — Web3Forms (Email) + Telegram Bot (Notification) ========
+
+const WEB3FORMS_KEY      = '1fe15ca8-9ac7-4eef-9093-8f6f5b5e03fa'; // ✅ Active
+const TELEGRAM_BOT_TOKEN = '8648205655:AAGOrG06Fim7Knf_kW8_8hqZOT1cjeNtks8'; // ✅ Active
+const TELEGRAM_CHAT_ID   = '8738004168'; // ✅ Active
+
+async function sendMessage() {
+  const name    = document.getElementById('fname').value.trim();
+  const email   = document.getElementById('femail').value.trim();
+  const service = document.getElementById('fservice').value.trim();
+  const msg     = document.getElementById('fmessage').value.trim();
+
+  if (!name || !email || !msg) {
+    showToast('⚠️ Please fill in Name, Email & Message!', '#ffe94a');
+    return;
+  }
+  if (!/\S+@\S+\.\S+/.test(email)) {
+    showToast('⚠️ Please enter a valid email address!', '#ffe94a');
+    return;
+  }
+
+  // Lock button & show loader
+  const btn    = document.getElementById('submitBtn');
+  const btnTxt = document.getElementById('btnText');
+  const loader = document.getElementById('btnLoader');
+  btn.disabled = true;
+  btnTxt.style.display = 'none';
+  loader.style.display = 'flex';
+
+  let emailOk    = false;
+  let telegramOk = false;
+
+  // ── 1. Send EMAIL via Web3Forms ──────────────────────────────
+  try {
+    const formData = new FormData();
+    formData.append('access_key', WEB3FORMS_KEY);
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('subject', `[EDTECH] New Inquiry from ${name} — ${service || 'General'}`);
+    formData.append('message',
+      `NEW PORTFOLIO INQUIRY\n\n` +
+      `Name: ${name}\n` +
+      `Email: ${email}\n` +
+      `Service: ${service || 'Not specified'}\n\n` +
+      `Message:\n${msg}\n\n` +
+      `Sent via EDTECH Portfolio Website`
+    );
+    formData.append('from_name', 'EDTECH Portfolio');
+    formData.append('replyto', email);
+
+    const res  = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+    const data = await res.json();
+    emailOk = data.success;
+  } catch(e) {
+    console.error('Email error:', e);
+  }
+
+  // ── 2. Send Telegram Notification ────────────────────────────
+  try {
+    const telegramMsg =
+      `🔔 *NEW EDTECH INQUIRY!*\n\n` +
+      `👤 *Name:* ${name}\n` +
+      `📧 *Email:* ${email}\n` +
+      `🔧 *Service:* ${service || 'Not specified'}\n\n` +
+      `💬 *Message:*\n${msg}\n\n` +
+      `⏰ ${new Date().toLocaleString('en-PH', { timeZone: 'Asia/Manila' })}`;
+
+    const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+    const res = await fetch(telegramUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: telegramMsg,
+        parse_mode: 'Markdown'
+      })
+    });
+    const data = await res.json();
+    telegramOk = data.ok;
+  } catch(e) {
+    console.error('Telegram error:', e);
+  }
+
+  // ── 3. Show result ───────────────────────────────────────────
+  btn.disabled = false;
+  btnTxt.style.display = 'flex';
+  loader.style.display = 'none';
+
+  if (emailOk || telegramOk) {
+    showToast("✅ Message sent! I'll reply ASAP 🚀", '#39ff88');
+    document.getElementById('fname').value    = '';
+    document.getElementById('femail').value   = '';
+    document.getElementById('fservice').value = '';
+    document.getElementById('fmessage').value = '';
+    const notice = document.getElementById('setupNotice');
+    if (notice) notice.style.display = 'none';
+  } else {
+    showToast('❌ Something went wrong. Try emailing directly!', '#ff4fa3');
+  }
+}
+
+function showToast(message, color = '#39ff88') {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.style.color = color;
+  toast.style.borderColor = color;
+  toast.style.boxShadow = `0 0 30px ${color}44`;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 4000);
+}
+
+// ======== SMOOTH NAV SCROLL ========
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
